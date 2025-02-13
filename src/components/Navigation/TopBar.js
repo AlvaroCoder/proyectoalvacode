@@ -5,7 +5,6 @@ import React from 'react'
 export default function TopBar() {
     const links=[
         {route : "/portfolio", name:"Portfolio", isSelected:true},
-        {route:"/projects",name:"Proyectos",isSelected:false},
         {route:"/blog",name:"Blog",isSelected:false}
     ]
   return (
