@@ -1,5 +1,5 @@
 
-const env = "dev"
+const env = "prod"
 const BASE_URL=env === "dev" ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL : process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION;
 
 export const URL_PROJECT = {
