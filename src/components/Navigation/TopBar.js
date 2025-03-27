@@ -3,12 +3,15 @@ import Link from 'next/link'
 import React from 'react'
 
 export default function TopBar() {
-    const links=[
-        {route : "/portfolio", name:"Portfolio", isSelected:true},
+    /**
+     *         {route : "/portfolio", name:"Portfolio", isSelected:true},
         {route:"/blog",name:"Blog",isSelected:false}
+     */
+    const links=[
+
     ]
   return (
-    <div className='w-full h-fit py-4 flex flex-row justify-between items-center border-b-[1px] border-b-blanco_claro text-blanco_claro bg-azul_oscuro px-4'>
+    <div className='w-full h-fit py-4 flex flex-row justify-between items-center  text-blanco_claro bg-azul_oscuro px-4'>
         <div className=' '>
             <Link
             href={"/"}

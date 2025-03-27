@@ -17,6 +17,7 @@ module.exports = {
   			gris_claro: '#E9ECEF',
   			naranja: '#FB8500',
   			amarillo: '#FCA311',
+			rojo : "#E63946",
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -60,7 +61,29 @@ module.exports = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		keyframes : {
+			typing: {
+				"0%": {
+				  width: "0%",
+				  visibility: "hidden"
+				},
+				"100%": {
+				  width: "100%"
+				}  
+			  },
+			  blink: {
+				"50%": {
+				  borderColor: "transparent"
+				},
+				"100%": {
+				  borderColor: "white"
+				}  
+			  }
+		},
+		animation : {
+			typing: "typing 2s steps(20) infinite alternate, blink .7s infinite"
+		}
   	}
   },
   plugins: [

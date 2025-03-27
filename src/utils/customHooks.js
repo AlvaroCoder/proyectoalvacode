@@ -15,6 +15,7 @@ export  function useFetch(url, method="GET") {
                         'Content-Type' : 'application/json'
                     },
                     mode : 'cors',
+                    cache:"no-cache"
                 })
 
                 if (!response.ok) {
@@ -24,9 +25,8 @@ export  function useFetch(url, method="GET") {
                 }
 
                 const jsonResponse = await response.json();
-                console.log(jsonResponse);
                 
-                setDataResponse(jsonResponse?.message?.contentComponents);
+                setDataResponse(jsonResponse?.message);
             } catch (error) {
                 setError(error);
             } finally{
