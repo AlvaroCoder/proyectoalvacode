@@ -18,7 +18,7 @@ export default function PostCardDetailIntro({
                 objectFit='cover'
 
                 src={iconContent?.url} 
-                alt={iconContent?.id}/>
+                alt={"Imagen del banner"}/>
         </div>
         <div className='md:w-[40%] w-full px-4 text-white' >
             <h1 className='font-sans md:text-6xl  text-5xl font-bold'>{heading}</h1>
