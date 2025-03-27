@@ -37,7 +37,7 @@ export default function PostCardDetail({post}) {
                 return(
                     <img
                         key={index}
-                        alt={obj.title}
+                        alt={"Imagen de posicion"}
                         src={obj.src}
                         className='my-4'
                     />

@@ -6,10 +6,9 @@ import React from 'react'
 
 export default function page() {
     const {slug} = useParams();
-    const URL_GET_POST_BY_CATEGORIE = process.env.NEXT_PUBLIC_URL_GET_POST_BY_CATEGORIE;
-    const {dataResponse : dataPost, loading : loadingDataPost, error : errorDataPost} = useFetch(URL_GET_POST_BY_CATEGORIE+"/?slug="+slug);
-    console.log(dataPost);
-  
+    const URL_GET_POST_BY_CATEGORIE = process.env.NEXT_PUBLIC_URL_GET_POST_BY_CATEGORIE_DEPLOY;
+    const {dataResponse : dataPost, loading : loadingDataPost, error : errorDataPost} = useFetch(URL_GET_POST_BY_CATEGORIE+"/?slug="+slug);  
+  console.log(dataPost);
   
   return (
     <div className='w-full min-h-screen ' >
