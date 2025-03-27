@@ -7,4 +7,5 @@ export const URL_PROJECT = {
     GET_DETAIL_POST_ID : `${BASE_URL}/posts/id/`,
     GET_CATEGORIES : `${BASE_URL}/posts/categories`,
     GET_CATEGORIE_POST : `${BASE_URL}/posts/?slug=`,
+    GET_POST_BY_SLUG : `${BASE_URL}/posts/filter`
 }
