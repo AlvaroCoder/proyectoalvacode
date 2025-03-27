@@ -1,4 +1,6 @@
+'use client'
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 
 export default function CardPost({data={}}) {
@@ -17,7 +19,11 @@ export default function CardPost({data={}}) {
             />
         </div>
         <section className='mt-2'>
-            <h1 className='text-4xl font-bold  cursor-pointer hover:underline'>{heading}</h1>
+            <Link
+                href={`/blog/${slug}`}
+            >
+                <h1 className='text-4xl font-bold  cursor-pointer hover:underline'>{heading}</h1>
+            </Link>
             <div className='w-full flex flex-row'>
                 {
                     categories?.map((item, idx)=><p key={idx} className='text-azul_oscuro bg-naranja p-2 w-fit my-2 mx-2'>{item?.name}</p>)

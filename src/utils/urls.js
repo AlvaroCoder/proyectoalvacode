@@ -1,5 +1,7 @@
+
 const env = "dev"
-const BASE_URL=env === "dev" ? "http://localhost:8082" : "https://backend-blog-alvacode.fly.dev"
+const BASE_URL=env === "dev" ? process.env.NEXT_PUBLIC_BASE_URL_LOCAL : process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION;
+
 export const URL_PROJECT = {
     GET_POSTS : `${BASE_URL}/posts`,
     GET_DETAIL_POST_ID : `${BASE_URL}/posts/id/`,
