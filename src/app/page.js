@@ -15,7 +15,7 @@ export default function Home() {
         <div className="w-max flex flex-col items-center">
           <h1 className="animate-typing  overflow-hidden whitespace-nowrap border-r-4 border-r-white pr-5 text-5xl text-naranja font-bold">Bienvenido a alvacode</h1>
         </div>
-        <div className="hidden mt-4 flex flex-row relative w-[500px]">
+        <div className="hidden mt-4  flex-row relative w-[500px]">
           <Input
             className="flex-1 bg-white rounded-full shadow-sm min-w-[500px]"
             placeholder="Buscar algun post ... "

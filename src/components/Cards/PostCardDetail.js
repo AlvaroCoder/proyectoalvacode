@@ -1,9 +1,7 @@
 'use client'
 import React from 'react'
 
-export default function PostCardDetail({post}) {
-    console.log(post);
-    
+export default function PostCardDetail({post}) {    
     const getContentFragment = (index, text, obj, type)=>{
         let modifiedText = text;
 

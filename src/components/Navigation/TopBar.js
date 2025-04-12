@@ -8,7 +8,7 @@ export default function TopBar() {
         {route:"/blog",name:"Blog",isSelected:false}
      */
     const links=[
-
+        {route : "/programmingexcercise", name : "Ejercicios", isSelected : true}
     ]
   return (
     <div className='w-full h-fit py-4 flex flex-row justify-between items-center  text-blanco_claro bg-azul_oscuro px-4'>
@@ -27,12 +27,12 @@ export default function TopBar() {
             </Link>
         </div>
         <ul
-            className='flex flex-row'
+            className='flex flex-row px-4'
         >
             {links.map(item=>
             <li
                 key={item.name}
-                className='list-none mx-4 border-b-2 px-2 border-b-azul_oscuro hover:border-b-blanco_claro '
+                className='list-none mx-4 border-b-2 px-2 border-b-azul_oscuro  hover:border-b-naranja '
             >
                 <Link href={item.route}>{item.name}</Link>
             </li>)}
