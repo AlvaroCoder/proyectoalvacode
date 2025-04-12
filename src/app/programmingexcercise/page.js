@@ -22,7 +22,7 @@ export default function Page() {
         </div>
       </section>
       <section className='w-full flex justify-center items-center py-8'>
-        <div className='w-full max-w-4xl'>
+        <div className='w-full max-w-4xl flex flex-col gap-4'>
           {
             dataPostsExercises?.programmingExcercises?.map((item)=><CardPostExercises key={item?.id} {...item}/>)
           }
