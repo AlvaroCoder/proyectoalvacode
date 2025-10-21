@@ -3,12 +3,9 @@ import Link from 'next/link'
 import React from 'react'
 
 export default function TopBar() {
-    /**
-     *         {route : "/portfolio", name:"Portfolio", isSelected:true},
-        {route:"/blog",name:"Blog",isSelected:false}
-     */
     const links=[
-        {route : "/programmingexcercise", name : "Ejercicios", isSelected : true}
+        {route : "/programmingexcercise", name : "Ejercicios", isSelected : true},
+        {route : "/portfolio", name : "Portafolio", isSelected : false},
     ]
   return (
     <div className='w-full h-fit py-4 flex flex-row justify-between items-center  text-blanco_claro bg-azul_oscuro px-4'>

@@ -83,7 +83,11 @@ module.exports = {
 		},
 		animation : {
 			typing: "typing 2s steps(20) infinite alternate, blink .7s infinite"
-		}
+		},
+		fontFamily: {
+			'plex-mono': ['IBM Plex Mono', 'monospace'],
+			'plex-serif': ['IBM Plex Serif', 'serif'],
+      	},
   	}
   },
   plugins: [
