@@ -7,7 +7,7 @@ import React from "react";
 export default function ViewWelcome() {
   return (
     <section className="min-h-screen w-full flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 px-4 sm:px-6 lg:px-8 py-8 lg:py-0 text-white relative overflow-hidden">
-      <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
+      <div className="px-20 w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left z-10">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light">Bienvenido a</h1>
             <h1 className="text-naranja text-5xl sm:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold mt-2 lg:mt-4 tracking-tight">
                   {` <AlvaCode/> `}</h1>

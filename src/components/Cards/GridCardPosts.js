@@ -61,7 +61,12 @@ export default function GridCardPosts({
           <section
             className=' w-full grid grid-cols-1 md:grid-cols-2 gap-4'
           >
-            {filterData?.map((item, idx)=><CardPost key={idx} data={item}/>)}
+            {filterData?.map((item, idx)=>{
+              if (idx < 4) {
+                return <CardPost key={idx} data={item}/>
+              }
+              return null;
+            })}
           </section> : 
         <section className='w-full flex justify-center items-center min-h-40  text-azul_oscuro'>
             <h1>Aún no hay data</h1>
