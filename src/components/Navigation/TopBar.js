@@ -1,18 +1,23 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu, X, Code } from 'lucide-react';
-import Link from 'next/link';
-
 
 export default function TopBar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [currentPath, setCurrentPath] = useState('/'); 
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setCurrentPath(window.location.pathname === '/' ? '/' : window.location.pathname);
+        }
+    }, []);
 
     const links = [
-    { route: "/Inicio", name: "Inicio", isSelected: true }, 
-        { route: "/portfolio", name: "Portafolio", isSelected: false }, 
-        { route: "/blog", name: "Blog", isSelected: false },
-        { route: "/videos", name: "Videos", isSelected: false },
-        { route: "/contact", name: "Contacto", isSelected: false },
+        { route: "/", name: "Inicio" },
+        { route: "/portfolio", name: "Portafolio" }, 
+        { route: "/blog", name: "Blog" },
+        { route: "/videos", name: "Videos" },
+        { route: "/contact", name: "Contacto" },
     ];
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -57,11 +62,11 @@ export default function TopBar() {
                     <ul className='flex flex-row text-sm font-medium'>
                         {links.map(item =>
                             <li key={item.name} className='list-none mx-3'>
-                                <Link
+                                <a 
                                     href={item.route}
                                     className={`
                                         px-3 py-1 pb-1 transition-all duration-300 ease-in-out block
-                                        ${item.isSelected
+                                        ${currentPath === item.route 
                                             ? 'text-[#E63946] border-b-2 border-[#E63946] font-semibold'
                                             : 'text-gray-300 hover:text-[#FFB703] hover:border-b-2 hover:border-[#FFB703]/50'
                                         }
@@ -69,7 +74,7 @@ export default function TopBar() {
                                     `}
                                 >
                                     {item.name}
-                                </Link>
+                                </a>
                             </li>
                         )}
                     </ul>
@@ -85,7 +90,7 @@ export default function TopBar() {
                                 onClick={toggleMenu}
                                 className={`
                                     block px-6 py-3 text-base transition-colors duration-200
-                                    ${item.isSelected
+                                    ${currentPath === item.route
                                         ? 'bg-[#E63946]/20 text-[#E63946] font-semibold'
                                         : 'text-gray-300 hover:bg-[#FFB703]/10 hover:text-[#FFB703]'
                                     }
