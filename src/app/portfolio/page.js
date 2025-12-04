@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import { Zap, Aperture, Brain, Code, Terminal, Trophy} from 'lucide-react';
+import { Aperture, Brain, Code, Terminal, Trophy} from 'lucide-react';
 import PortfolioCard from '@/components/Cards/PortfolioCard';
 
 const projectsData = [
@@ -8,7 +8,7 @@ const projectsData = [
         name: "Aplicación de Tareas",
         description: "Aplicación de escritorio, que permite gestionar las tareas que tengamos, pudiendo crearlas, editarlas y eliminarlas. ",
         technologies: ["JAVAX", "SQL"],
-        imageUrl: "https://placehold.co/600x400/212529/E63946?text=SYSTEM+R+A",
+        imageUrl: "https://raw.githubusercontent.com/AlvaroCoder/AppTareario/master/src/Imagenes/BannerAplicaciondeTareas%20.png",
         githubUrl: "https://github.com/AlvaroCoder/AppTareario",
         liveUrl: ""
     },
@@ -16,7 +16,7 @@ const projectsData = [
         name: "Sistema de Gestión del laboratorio SAC",
         description: "Plataforma para gestionar los documentos, libros, papers y miembros de forma interna del laboratorio Sistemas Automáticos de Control (SAC)",
         technologies: ["NextJS", "FastAPI", "TailwindCSS", "SQL"],
-        imageUrl: "https://placehold.co/600x400/212529/E63946?text=SYSTEM+R+A",
+        imageUrl: "https://res.cloudinary.com/dabyqnijl/image/upload/v1727218255/Screenshot_2024-09-24_at_17.48.39_y6ohso.png",
         githubUrl: "https://github.com/AlvaroCoder/proyecto-base-datos-sac",
         liveUrl: ""
     },
@@ -24,17 +24,18 @@ const projectsData = [
         name: "Aplicación G@llrisK",
         description: "Plataforma de modelado y análisis de riesgo financiero de alto rendimiento. Permite a las empresas ejecutar simulaciones Monte Carlo y análisis de sensibilidad exhaustivos para transformar la incertidumbre en inteligencia estratégica clave para la toma de decisiones en proyectos de inversión.",
         technologies: ["NextJS", "TailwindCss", "SQL", "SPRING BOOT"],
-        imageUrl: "https://placehold.co/600x400/212529/FFB703?text=V+EDITOR",
+        imageUrl: "https://res.cloudinary.com/dabyqnijl/image/upload/v1763614770/Screenshot_2025-11-19_at_23.56.56_bpsgpa.png",
         liveUrl: "https://www.gallrisk.com/" 
     },
     {
-        name: "Notaria Rojas Jaen",
-        description: "Aplicación ge gestión interna de una notaría, para la gestión de documentos y de sus procesos.",
-        technologies: ["NextJS", "Socket.io", "MongoDB", "Python"],
-        imageUrl: "https://placehold.co/600x400/212529/FB8500?text=CHESS+AI",
-        githubUrl: "",
-        liveUrl: "https://chess-online.app"
-    },
+        name: "Notaría Rojas Jaén",
+        description: "Aplicación web que permite a los clientes gestionar sus trámites notariales en línea, incluyendo la carga de documentos, seguimiento del estado de sus solicitudes y acceso a información relevante del servicio.",
+        technologies: ["NextJS", "FastAPI", "MongoDB", "TailwindCSS"],
+        imageUrl: "https://res.cloudinary.com/dabyqnijl/image/upload/v1764826777/Screenshot_2025-12-04_at_00.36.37_nnyrsf.png",
+        githubUrl: "https://github.com/AlvaroCoder/cliente-app-frontend",
+        liveUrl: "https://www.notariarojasjaen.com/"
+  },
+    
 ];
 
 const skillItems = [
@@ -43,7 +44,6 @@ const skillItems = [
     { name: "Clean Code", icon: Code, description: "Foco en código legible, mantenible y escalable, mi campo de juego." },
     { name: "Innovación Tranquila", icon: Aperture, description: "Encontrando soluciones creativas con la calma y perspectiva de la playa." },
 ];
-
 
 export default function PortfolioPage() {
   return (
@@ -57,7 +57,7 @@ export default function PortfolioPage() {
                 Mis <span className="text-[#E63946]">Proyectos</span> Recientes
             </h1>
             <p className="text-lg text-gray-400 max-w-2xl">
-                Aquí demuestro el poder del código. Cada proyecto es una solución única construida con tecnologías de vanguardia.
+                Una pequeña muestra de mis habilidades.
             </p>
         </header>
 
