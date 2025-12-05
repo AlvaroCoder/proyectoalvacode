@@ -2,6 +2,7 @@
 import React from "react";
 import { MoveRight, Zap, Code, Cpu } from "lucide-react"; 
 import FuturisticCube from "@/elements/FuturisticCube";
+import Link from "next/link";
 
 
 export default function ViewWelcome() {
@@ -33,12 +34,12 @@ export default function ViewWelcome() {
             </p>
 
             <section className="flex flex-col sm:flex-row gap-4 lg:gap-6 mt-10 w-full sm:w-auto">
-                <a 
-                    href="#portfolio"
+                <Link 
+                    href="/portfolio"
                     className="text-[#212529] px-6 sm:px-8 py-3 bg-[#FFB703] hover:bg-yellow-400 transition-all duration-300 rounded-xl font-bold text-lg sm:text-xl shadow-[0_0_20px_#FFB70380] hover:shadow-[0_0_30px_#FFB703] transform hover:-translate-y-0.5 text-center"
                 >
                     Ver Proyectos <Code className="inline-block w-5 h-5 ml-1"/>
-                </a>
+                </Link>
                 <a 
                     href="/contact"
                     className="group border-2 border-[#FB8500] hover:bg-[#FB8500] hover:bg-opacity-10 px-6 sm:px-8 py-3 transition-all duration-300 rounded-xl text-center"

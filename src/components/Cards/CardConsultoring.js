@@ -9,7 +9,6 @@ export default function CardConsultoring() {
     const handleContact = () => {
         if (dataEmail.trim()) {
             console.log(`Enviando solicitud de consultoría para: ${dataEmail}`);
-            // Aquí iría la lógica de envío real (API call)
             alert('¡Tu solicitud ha sido enviada! Te contactaremos pronto.'); // Usamos alert temporalmente para confirmación visual simple
         } else {
             alert('Por favor, ingresa un correo electrónico válido.');
