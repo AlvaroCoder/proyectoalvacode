@@ -16,7 +16,6 @@ export default function TopBar() {
         { route: "/", name: "Inicio" },
         { route: "/portfolio", name: "Portafolio" }, 
         { route: "/blog", name: "Blog" },
-        { route: "/videos", name: "Videos" },
         { route: "/contact", name: "Contacto" },
     ];
 

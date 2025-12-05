@@ -6,8 +6,8 @@ import { Loader2 } from "lucide-react";
 
 export default function ViewBlogPrincipal() {
   const { dataResponse: dataPosts, loading: loadingDataPosts } = useFetch(URL_PROJECT.GET_POSTS);
-  const { dataResponse: dataCategoris, loading: loadingDataCategories } = useFetch(URL_PROJECT.GET_CATEGORIES);
-
+  const { dataResponse: dataCategories, loading: loadingDataCategories } = useFetch(URL_PROJECT.GET_CATEGORIES);
+  
   return (
     <section className="w-full flex flex-col items-center">
       <h1 className="text-white text-3xl">Mi Blog</h1>
@@ -21,8 +21,8 @@ export default function ViewBlogPrincipal() {
           </div>
         ) : (
           <GridCardPosts
-            dataCategories={dataCategoris}
-            dataPostsServer={dataPosts?.contentComponents}
+            dataCategories={dataCategories}
+            dataPostsServer={dataPosts}
           />
         )}
       </div>

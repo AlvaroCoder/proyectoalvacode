@@ -6,7 +6,9 @@ export default function GridCardPosts({
   dataPostsServer=[],
   dataCategories=[],
 }) {      
-    const [dataPosts, setDataPosts] = useState(dataPostsServer);
+  const [dataPosts, setDataPosts] = useState(dataPostsServer);
+  console.log(dataPostsServer);
+  
     const [dataCategoriesPosts, setDataCategoriesPosts] = useState([{name : "Todos", slug : "todos"},...dataCategories]?.map((item, idx)=>{
       if (idx === 0) {
         return {

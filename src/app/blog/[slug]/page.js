@@ -15,7 +15,8 @@ export default function BlogPage() {
         loading: loadingDataPost, 
         error: errorDataPost 
     } = useFetch(`${URL_GET_POST_BY_CATEGORIE}/?slug=${slug}`);
-
+    console.log(dataPost);
+    
     if (loadingDataPost) {
         return (
             <main className='w-full min-h-screen bg-white'>
@@ -50,23 +51,22 @@ export default function BlogPage() {
     return (
         <main className='w-full min-h-screen bg-gray-50 pb-20'>
             
-            {dataPost && <PostCardDetailIntro {...dataPost?.contentComponent} />}
-
+            {dataPost && <PostCardDetailIntro {...dataPost} />}
+                
             <div className='max-w-7xl mx-auto px-4 md:px-6 mt-8 md:mt-12'>
                 
                 <div className='grid grid-cols-1 lg:grid-cols-12 gap-8 relative'>
-                    
                     <article className='lg:col-span-8 w-full'>
                         <div className='bg-white border border-gray-100 p-6 md:p-10 rounded-2xl shadow-sm'>
                             {dataPost && (
-                                <PostCardDetail post={dataPost?.contentComponent?.content?.json} />
+                                <PostCardDetail post={dataPost?.content?.json} />
                             )}
                         </div>
                     </article>
 
                     <aside className='hidden lg:block lg:col-span-4 relative'>
                         <div className='sticky top-28'> 
-                             <CardTitles data={dataPost?.contentComponent?.content?.json} />
+                             <CardTitles data={dataPost?.content?.json} />
                         </div>
                     </aside>
 
