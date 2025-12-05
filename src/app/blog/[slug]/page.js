@@ -15,7 +15,6 @@ export default function BlogPage() {
         loading: loadingDataPost, 
         error: errorDataPost 
     } = useFetch(`${URL_GET_POST_BY_CATEGORIE}/?slug=${slug}`);
-    console.log(dataPost);
     
     if (loadingDataPost) {
         return (
