@@ -1,66 +1,84 @@
 'use client'
 import React from "react";
-import { MoveRight, Zap, Code, Cpu } from "lucide-react"; 
-import FuturisticCube from "@/elements/FuturisticCube";
+import { ArrowRight, Code2, Cpu, GitMerge } from "lucide-react";
 import Link from "next/link";
 
+const PILLARS = [
+  { icon: Code2, label: "Desarrollo a medida" },
+  { icon: Cpu,   label: "Automatización" },
+  { icon: GitMerge, label: "Integración de sistemas" },
+];
 
 export default function ViewWelcome() {
   return (
-    <section className="min-h-screen w-full bg-[#212529] pt-24 lg:pt-32 pb-12 flex flex-col items-center justify-center text-white relative overflow-hidden">
-      
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20 px-6 sm:px-8 lg:px-10 z-10">
-        
-        <div className="w-full lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-left">
-            
-            <p className="text-sm sm:text-base font-medium tracking-widest uppercase text-[#FFB703] mb-2 flex items-center gap-2">
-                <Zap className="w-4 h-4 text-[#FFB703] animate-pulse" />
-                La mejor web de Tecnología y Código
-            </p>
+    <section className="min-h-screen w-full bg-[#212529] pt-28 pb-20 flex flex-col justify-center relative overflow-hidden">
 
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-light leading-tight">
-                Bienvenido al <br/>
-                <span className="text-[#E63946] font-extrabold tracking-tighter">
-                  FUTURO
-                </span> del Desarrollo
-            </h1>
-            
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-2 lg:mt-4 tracking-wider text-white">
-                  {` <AlvaCode/> `}
-            </h2>
-            
-            <p className="mt-6 text-base sm:text-lg text-gray-400 max-w-xl">
-                Soy un desarrollador apasionado por la **estrategia** y la **innovación**. Aquí encontrarás desde cursos y tutoriales de vanguardia hasta aplicaciones que demuestran el poder del código.
-            </p>
+      {/* Subtle grid background */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(#E9ECEF 1px, transparent 1px), linear-gradient(90deg, #E9ECEF 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }}
+      />
 
-            <section className="flex flex-col sm:flex-row gap-4 lg:gap-6 mt-10 w-full sm:w-auto">
-                <Link 
-                    href="/portfolio"
-                    className="text-[#212529] px-6 sm:px-8 py-3 bg-[#FFB703] hover:bg-yellow-400 transition-all duration-300 rounded-xl font-bold text-lg sm:text-xl shadow-[0_0_20px_#FFB70380] hover:shadow-[0_0_30px_#FFB703] transform hover:-translate-y-0.5 text-center"
-                >
-                    Ver Proyectos <Code className="inline-block w-5 h-5 ml-1"/>
-                </Link>
-                <a 
-                    href="/contact"
-                    className="group border-2 border-[#FB8500] hover:bg-[#FB8500] hover:bg-opacity-10 px-6 sm:px-8 py-3 transition-all duration-300 rounded-xl text-center"
-                >
-                    <p className="flex flex-row items-center justify-center gap-2 text-[#FB8500] group-hover:text-white font-semibold text-lg sm:text-xl">
-                        Consultoría
-                        <span className="transform group-hover:translate-x-1 transition-transform duration-300">
-                            <MoveRight size={20} />
-                        </span>
-                    </p>
-                </a>
-            </section>
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#FB8500]/30 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 z-10 w-full">
+
+        {/* Eyebrow */}
+        <p className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#FB8500]/70 mb-10">
+          Consultoría &amp; Desarrollo Tecnológico · alvacode.dev
+        </p>
+
+        {/* Headline */}
+        <div className="max-w-5xl">
+          <h1 className="text-5xl sm:text-6xl lg:text-[82px] font-light leading-[1.05] text-[#F8F9FA] tracking-tight">
+            Tecnología que<br />
+            <span className="font-semibold">transforma</span>{" "}
+            <span className="text-[#FB8500]">empresas.</span>
+          </h1>
         </div>
 
-        <div className="w-full lg:w-2/5 flex flex-col items-center mt-12 lg:mt-0">
-            
-            <div className="w-full max-w-xs sm:max-w-md lg:max-w-none h-64 sm:h-80 lg:h-96 bg-[#212529] border-2 border-[#E63946] rounded-3xl p-2 relative flex items-center justify-center shadow-[0_0_40px_#E6394650] overflow-hidden">
-                <FuturisticCube/>
+        {/* Thin divider */}
+        <div className="w-12 h-px bg-[#FB8500] mt-10 mb-8" />
+
+        {/* Sub-copy */}
+        <p className="text-base sm:text-lg text-[#ADB5BD] max-w-xl leading-relaxed font-light">
+          Diseñamos, desarrollamos e integramos soluciones informáticas y de
+          automatización para que tu empresa opere mejor, más rápido y con
+          menos fricción.
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4 mt-12">
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#FB8500] text-[#212529] font-semibold text-sm tracking-wide hover:bg-[#FFB703] transition-colors duration-200"
+          >
+            Ver proyectos
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-3 px-8 py-4 border border-[#E9ECEF]/20 text-[#E9ECEF] font-light text-sm tracking-wide hover:border-[#FB8500]/50 hover:text-[#FB8500] transition-all duration-200"
+          >
+            Hablar con un experto
+          </a>
+        </div>
+
+        {/* Pillar strip */}
+        <div className="flex flex-wrap gap-8 mt-20 pt-8 border-t border-[#E9ECEF]/10">
+          {PILLARS.map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-3 text-[#ADB5BD] text-sm font-light">
+              <Icon className="w-4 h-4 text-[#FB8500]" />
+              <span className="tracking-wide">{label}</span>
             </div>
-
+          ))}
         </div>
+
       </div>
     </section>
   );
