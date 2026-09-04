@@ -16,7 +16,6 @@ export default function TopBar() {
         { route: "/", name: "Inicio" },
         { route: "/portfolio", name: "Portafolio" }, 
         { route: "/blog", name: "Blog" },
-        { route: "/contact", name: "Contacto" },
     ];
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);

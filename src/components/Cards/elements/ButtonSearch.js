@@ -1,8 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { Search, X, Zap, Command } from 'lucide-react';
-
-const SEARCH_API_URL = "/api/posts/search?q=";
+import { Search, X, Loader2 } from 'lucide-react';
 
 const MOCK_SEARCH_RESULTS = [
     { id: 1, title: 'Optimización de SQL y bases de datos NoSQL', slug: 'sql-nosql-optimization', type: 'Blog Post' },
@@ -10,7 +8,7 @@ const MOCK_SEARCH_RESULTS = [
     { id: 3, title: 'Proyecto: Aplicación G@llrisK (Análisis Montecarlo)', slug: 'gallrisk-project', type: 'Portafolio' },
 ];
 
-export default function ButtonSearch({className=""}) {
+export default function ButtonSearch({ className = "" }) {
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -32,130 +30,117 @@ export default function ButtonSearch({className=""}) {
             setSearchResults([]);
             return;
         }
-
         const handler = setTimeout(async () => {
             setIsSearching(true);
-            
-            console.log(`Buscando en API: ${SEARCH_API_URL}${searchQuery}`);
-            
-            await new Promise(resolve => setTimeout(resolve, 500)); 
-
-            const filteredResults = MOCK_SEARCH_RESULTS.filter(item =>
-                item.title.toLowerCase().includes(searchQuery.toLowerCase())
+            await new Promise((r) => setTimeout(r, 400));
+            setSearchResults(
+                MOCK_SEARCH_RESULTS.filter((item) =>
+                    item.title.toLowerCase().includes(searchQuery.toLowerCase())
+                )
             );
-
-            setSearchResults(filteredResults);
             setIsSearching(false);
-
         }, 300);
-
         return () => clearTimeout(handler);
     }, [searchQuery]);
 
     useEffect(() => {
-        const handleKeyDown = (event) => {
-            if (isOpen && event.key === 'Escape') {
-                handleClose();
-                return;
-            }
-
-            const isCmdK = (event.metaKey || event.ctrlKey) && event.key === 'k';
-            
-            if (isCmdK) {
-                event.preventDefault();
+        const handleKeyDown = (e) => {
+            if (isOpen && e.key === 'Escape') { handleClose(); return; }
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
                 handleOpen();
             }
         };
-
         document.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [isOpen]); 
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen]);
 
     return (
         <>
-           
+            {/* Trigger button */}
             <button
                 onClick={handleOpen}
                 className={`
-                    flex items-center justify-between
-                    w-full max-w-xs px-4 py-2 rounded-xl
-                    bg-[#212529] border border-[#FFB703]/50 text-gray-300
-                    shadow-md shadow-[#FFB703]/20
-                    hover:bg-[#212529] hover:text-[#FFB703] 
-                    transition-all duration-300
+                    flex items-center gap-3 px-4 py-2
+                    border border-[#E9ECEF]/20 text-[#ADB5BD]
+                    hover:border-[#FB8500]/40 hover:text-[#FB8500]
+                    transition-all duration-200 text-sm font-light
                     ${className}
                 `}
-                aria-label="Abrir Búsqueda Global"
+                aria-label="Abrir búsqueda"
             >
-                <div className='flex items-center gap-2'>
-                    <Search className='w-4 h-4' />
-                    <span className='text-sm font-medium'>Buscar...</span>
-                </div>
-                
-             
-                <div className='flex items-center gap-1 text-xs font-mono text-gray-500 group-hover:text-[#FFB703] border border-gray-700 rounded-md px-1.5 py-0.5'>
-                    <span className='hidden sm:inline'>{navigator.platform.toUpperCase().includes('MAC') ? '⌘' : 'Ctrl'}</span>
-                    <span className='font-bold'>K</span>
-                </div>
+                <Search className="w-4 h-4" />
+                <span>Buscar…</span>
+                <span className="font-mono text-[10px] border border-[#E9ECEF]/20 px-1.5 py-0.5 text-[#6C757D]">
+                    ⌘K
+                </span>
             </button>
 
-           
+            {/* Modal */}
             {isOpen && (
-                <div 
-                    className='fixed inset-0 z-[100] bg-[#212529]/80 backdrop-blur-sm flex justify-center pt-20 transition-opacity'
+                <div
+                    className="fixed inset-0 z-[100] bg-[#212529]/90 backdrop-blur-sm flex justify-center pt-20"
                     onClick={handleClose}
                 >
-                    <div 
-                        className='w-full max-w-2xl bg-[#212529] border border-[#E63946]/50 rounded-xl shadow-2xl p-6 relative overflow-hidden'
-                        onClick={(e) => e.stopPropagation()} 
+                    <div
+                        className="w-full max-w-2xl mx-4 bg-[#2A2E32] border border-[#E9ECEF]/10 shadow-2xl relative"
+                        onClick={(e) => e.stopPropagation()}
                     >
-                       
-                        <button 
-                            onClick={handleClose}
-                            className='absolute top-3 right-3 p-2 text-gray-500 hover:text-[#E63946] transition-colors duration-200'
-                            aria-label="Cerrar"
-                        >
-                            <X className='w-6 h-6' />
-                        </button>
-
-                        <div className='flex items-center space-x-2 border-b border-[#FFB703] pb-3'>
-                            <Search className='w-6 h-6 text-[#FFB703]' />
+                        {/* Search input */}
+                        <div className="flex items-center gap-4 px-6 py-4 border-b border-[#E9ECEF]/10">
+                            {isSearching
+                                ? <Loader2 className="w-4 h-4 text-[#FB8500] animate-spin flex-shrink-0" />
+                                : <Search className="w-4 h-4 text-[#ADB5BD] flex-shrink-0" />
+                            }
                             <input
                                 id="search-input"
                                 type="text"
-                                placeholder="Busca posts, proyectos o tecnologías..."
+                                placeholder="Busca artículos, proyectos o tecnologías…"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className='w-full bg-transparent text-white text-xl placeholder-gray-600 focus:outline-none'
+                                className="flex-1 bg-transparent text-[#F8F9FA] text-base font-light placeholder:text-[#6C757D] outline-none"
                             />
-                            {isSearching && (
-                                <Zap className='w-5 h-5 text-[#E63946] animate-pulse' />
-                            )}
+                            <button
+                                onClick={handleClose}
+                                className="text-[#6C757D] hover:text-[#ADB5BD] transition-colors"
+                                aria-label="Cerrar"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
                         </div>
 
-                        <div className='mt-6 max-h-80 overflow-y-auto space-y-2'>
+                        {/* Results */}
+                        <div className="max-h-80 overflow-y-auto">
                             {searchQuery.length > 0 && searchResults.length === 0 && !isSearching && (
-                                <p className='text-gray-500 text-center py-4'>No se encontraron resultados para "{searchQuery}".</p>
+                                <p className="text-sm text-[#6C757D] font-light text-center py-10">
+                                    Sin resultados para &ldquo;{searchQuery}&rdquo;
+                                </p>
                             )}
 
-                            {searchResults.map(result => (
+                            {searchQuery.length === 0 && (
+                                <p className="text-xs font-mono text-[#6C757D] text-center py-10 tracking-widest uppercase">
+                                    Escribe para buscar
+                                </p>
+                            )}
+
+                            {searchResults.map((result) => (
                                 <a
                                     key={result.id}
                                     href={`/${result.type.toLowerCase().includes('portafolio') ? 'portfolio' : 'blog'}/${result.slug}`}
                                     onClick={handleClose}
-                                    className='group flex flex-col p-3 rounded-lg border border-[#212529] hover:border-[#FB8500]/50 hover:bg-[#212529]/70 transition-all duration-300'
+                                    className="group flex items-center justify-between px-6 py-4 border-b border-[#E9ECEF]/10 last:border-0 hover:bg-[#343A40] transition-colors duration-200"
                                 >
-                                    <p className='text-white font-medium group-hover:text-[#FFB703]'>{result.title}</p>
-                                    <span className='text-xs text-gray-500'>{result.type}</span>
+                                    <div>
+                                        <p className="text-sm text-[#E9ECEF] font-light group-hover:text-[#FB8500] transition-colors">
+                                            {result.title}
+                                        </p>
+                                        <p className="font-mono text-[9px] tracking-widest uppercase text-[#ADB5BD]/50 mt-0.5">
+                                            {result.type}
+                                        </p>
+                                    </div>
+                                    <Search className="w-3 h-3 text-[#ADB5BD]/30 group-hover:text-[#FB8500] transition-colors" />
                                 </a>
                             ))}
-                            
-                            {searchQuery.length === 0 && (
-                                <p className='text-gray-500 text-center py-4'>Escribe al menos 3 caracteres para empezar a buscar.</p>
-                            )}
                         </div>
                     </div>
                 </div>

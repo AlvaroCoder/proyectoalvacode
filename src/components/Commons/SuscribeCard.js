@@ -1,61 +1,51 @@
+'use client'
 import React, { useState } from 'react'
-import { Mail, Send } from 'lucide-react';
 
 export default function SuscribeCard() {
     const [email, setEmail] = useState('');
+    const [sent, setSent] = useState(false);
 
     const handleSubscribe = () => {
-        if (email.trim() && email.includes('@')) {
-            console.log(`Nueva suscripción solicitada para: ${email}`);
-            alert(`¡Gracias por suscribirte, ${email}!`);
-            setEmail('');
-        } else {
-            alert('Por favor, introduce un correo electrónico válido.');
-        }
+        if (!email.trim() || !email.includes('@')) return;
+        // TODO: conectar con endpoint de suscripción real
+        setSent(true);
+        setEmail('');
     };
 
-  return (
-    <div className='w-full flex items-center justify-center '>
-        <section 
-            className='
-                w-full max-w-lg rounded-xl p-6 sm:p-8 
-                bg-[#212529]/60 backdrop-blur-md border border-[#E63946]/30
-                shadow-[0_0_30px_rgba(230,57,70,0.1)]
-                text-white space-y-4 relative overflow-hidden
-            '
-        >
-            {/* Elemento decorativo sutil */}
-            <div className='
-                absolute top-0 right-0 w-1/3 h-1/3 
-                bg-[#FFB703]/10 rounded-full blur-3xl
-            '/>
-            
-            <div className='relative z-10 space-y-3'>
-                <h2 className='text-3xl font-bold tracking-tight text-[#FFB703] flex items-center gap-2'>
-                    <Mail className='w-6 h-6 text-[#E63946]' />
-                    Únete a alvacode
-                </h2>
-                
-                <p className='text-gray-300 text-base'>
-                    Suscríbete para recibir notificaciones cuando se publiquen nuevos artículos, tutoriales y análisis de código avanzado.
-                </p>
+    return (
+        <div className="w-full border border-[#E9ECEF]/10 p-6">
+            <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#FB8500]/70 mb-4">
+                Newsletter
+            </p>
 
-                <div className='flex '>
-                    
-                    <button 
+            {sent ? (
+                <p className="text-sm text-[#ADB5BD] font-light">
+                    Suscripción registrada. ¡Gracias!
+                </p>
+            ) : (
+                <>
+                    <h2 className="text-base font-light text-[#F8F9FA] mb-2 leading-snug">
+                        Nuevos artículos directo a tu correo.
+                    </h2>
+                    <p className="text-xs text-[#ADB5BD] font-light mb-6 leading-relaxed">
+                        Sin spam. Solo contenido técnico cuando se publique.
+                    </p>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
+                        placeholder="correo@empresa.com"
+                        className="w-full bg-transparent border-b border-[#E9ECEF]/20 py-2 text-[#F8F9FA] text-sm font-light outline-none focus:border-[#FB8500] transition-colors duration-200 placeholder:text-[#6C757D] mb-4"
+                    />
+                    <button
                         onClick={handleSubscribe}
-                        className='
-                            w-full sm:w-auto px-6 py-3 rounded-lg font-bold text-[#212529]
-                            bg-[#FB8500] hover:bg-[#FFB703] transition-all duration-300
-                            shadow-lg shadow-[#FB8500]/50 hover:shadow-[0_0_25px_rgba(255,183,3,0.7)]
-                            flex items-center justify-center gap-2 transform hover:-translate-y-0.5
-                        '
+                        className="w-full py-3 bg-[#FB8500] text-[#212529] font-semibold text-[10px] tracking-[0.25em] uppercase hover:bg-[#FFB703] transition-colors duration-200"
                     >
-                        Suscribirse <Send className='w-4 h-4' />
+                        Suscribirse
                     </button>
-                </div>
-            </div>
-        </section>
-    </div>
-  )
-};
+                </>
+            )}
+        </div>
+    );
+}

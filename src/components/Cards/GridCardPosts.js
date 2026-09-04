@@ -3,90 +3,70 @@ import React, { useMemo, useState } from 'react'
 import { CardPost } from './elements';
 
 export default function GridCardPosts({
-  dataPostsServer=[],
-  dataCategories=[],
-}) {      
-  const [dataPosts, setDataPosts] = useState(dataPostsServer);
-  console.log(dataPostsServer);
-  
-    const [dataCategoriesPosts, setDataCategoriesPosts] = useState([{name : "Todos", slug : "todos"},...dataCategories]?.map((item, idx)=>{
-      if (idx === 0) {
-        return {
-          ...item,
-          isSelected : true
-        }
-      }
-      return { 
-        ...item,
-        isSelected : false
-      }
-    }));
-       
-    const filterData=useMemo(()=>{
-      const categorieSelected = dataCategoriesPosts.filter((item)=>item.isSelected)[0];
-      if (categorieSelected?.name?.toUpperCase() === "TODOS") {
-        return dataPosts;
-      }
-      return dataPosts.filter((item)=>item?.categories?.some(category => categorieSelected?.name.toUpperCase().includes(category?.name?.toUpperCase())));
-    }, [dataCategoriesPosts, dataPosts])
+  dataPostsServer = [],
+  dataCategories = [],
+}) {
+  const [dataPosts] = useState(dataPostsServer);
+  const [dataCategoriesPosts, setDataCategoriesPosts] = useState(
+    [{ name: "Todos", slug: "todos" }, ...dataCategories].map((item, idx) => ({
+      ...item,
+      isSelected: idx === 0,
+    }))
+  );
 
-    const handleChangeCategorie=(idx)=>{
-      const newDataCategorie = dataCategoriesPosts.map((item, key)=>{
-        if (idx === key) {
-          return {
-            ...item,
-            isSelected : true
-          }
-        }
-        return {
-          ...item,
-          isSelected :false
-        }
-      });
-      setDataCategoriesPosts(newDataCategorie);
-    }
+  const filterData = useMemo(() => {
+    const selected = dataCategoriesPosts.find((item) => item.isSelected);
+    if (selected?.name?.toUpperCase() === "TODOS") return dataPosts;
+    return dataPosts.filter((item) =>
+      item?.categories?.some((cat) =>
+        selected?.name?.toUpperCase().includes(cat?.name?.toUpperCase())
+      )
+    );
+  }, [dataCategoriesPosts, dataPosts]);
+
+  const handleChangeCategorie = (idx) => {
+    setDataCategoriesPosts((prev) =>
+      prev.map((item, key) => ({ ...item, isSelected: idx === key }))
+    );
+  };
+
   return (
-    <section className='max-w-6xl w-full mx-auto p-4 bg-[#212529] rounded-xl'>
-      
-      <div className='my-8 flex justify-center'>
-        <ul className='flex flex-wrap justify-center gap-3 p-2 rounded-xl bg-gray-800/40 backdrop-blur-sm border border-gray-700/50'>
-          {
-            dataCategoriesPosts?.map((item, key)=><p
-              key={key}
-              onClick={()=>handleChangeCategorie(key)}
-              className={`
-                py-2 px-4 cursor-pointer text-sm font-semibold rounded-lg transition-all duration-300
-                shadow-inner shadow-[#00000080]
-                
-                ${item?.isSelected 
-                    ? 'bg-[#E63946]/20 border border-[#E63946] text-[#FFB703] shadow-[0_0_10px_rgba(230,57,70,0.5)]' 
-                    : 'bg-[#212529]/70 border border-gray-700/50 text-gray-400 hover:text-white hover:border-[#FFB703]/30'
-                }
-              `}   
-            >
-              {item?.name}
-            </p>)
-          }
-        </ul>
-      </div>
-      
-      {
-        filterData.length > 0 ?
-          <section
-            className=' w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4' 
-          >
-            {filterData?.map((item, idx)=>{
-              if (idx < 6) {
-                 return <CardPost key={idx} data={item}/>
+    <div className="w-full">
+
+      {/* Category filter */}
+      <div className="flex flex-wrap gap-2 mb-12">
+        {dataCategoriesPosts.map((item, key) => (
+          <button
+            key={key}
+            onClick={() => handleChangeCategorie(key)}
+            className={`
+              px-4 py-1.5 text-[10px] font-mono tracking-[0.25em] uppercase transition-all duration-200
+              ${item.isSelected
+                ? 'text-[#212529] bg-[#FB8500]'
+                : 'text-[#ADB5BD] border border-[#E9ECEF]/20 hover:border-[#FB8500]/40 hover:text-[#FB8500]'
               }
-              return null
-            })}
-          </section> : 
-        <section className='w-full  flex justify-center items-center min-h-[400px] text-gray-400 bg-[#212529]/50 rounded-lg p-6'>
-            <h1 className='text-lg font-medium text-white'>Aún no hay data para esta categoría.</h1>
-        </section>
-      }
-      
-    </section>
-  )
+            `}
+          >
+            {item.name}
+          </button>
+        ))}
+      </div>
+
+      {/* Grid */}
+      {filterData.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E9ECEF]/10">
+          {filterData.slice(0, 6).map((item, idx) => (
+            <CardPost key={idx} data={item} />
+          ))}
+        </div>
+      ) : (
+        <div className="w-full flex justify-center items-center min-h-[400px] border border-[#E9ECEF]/10">
+          <p className="text-sm text-[#ADB5BD] font-light tracking-wide">
+            Sin artículos para esta categoría.
+          </p>
+        </div>
+      )}
+
+    </div>
+  );
 }

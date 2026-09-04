@@ -10,42 +10,70 @@ import { URL_PROJECT } from '@/utils/urls';
 import React from 'react'
 
 export default function page() {
-    const URL = URL_PROJECT.GET_POSTS
-    const {loading, dataResponse, error} = useFetch(URL);
-    
+    const { loading, dataResponse } = useFetch(URL_PROJECT.GET_POSTS);
+
     if (loading) {
-        return <LoadingPage/>
+        return <LoadingPage />;
     }
+
     return (
-        <div
-            className='bg-azul_oscuro w-full min-h-screen pt-20'
-        >            
-            <main className='px-8 py-12 grid grid-cols-1 lg:grid-cols-4 gap-8'>
-                <section className='lg:col-span-3 space-y-8 flex flex-col'>
+        <div className="bg-[#212529] w-full min-h-screen pt-20">
+            <main className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
+
+                {/* Page header */}
+                <div className="flex items-start justify-between mb-16">
                     <div>
-                        <div className='flex flex-row gap-4 justify-between'>
-                            <h1 className='font-bold text-6xl text-gris_claro'>
-                            Bienvenido a mi <span className='text-rojo'>Blog</span>
-                            </h1>
-                            <ButtonSearch/>
+                        <p className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#FB8500]/70 mb-4">
+                            Blog &amp; Conocimiento
+                        </p>
+                        <h1 className="text-4xl sm:text-5xl font-light text-[#F8F9FA] leading-tight">
+                            Artículos sobre{" "}
+                            <span className="text-[#FB8500]">tecnología</span>
+                            <br />y desarrollo.
+                        </h1>
+                    </div>
+                    <div className="hidden sm:block pt-2">
+                        <ButtonSearch />
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+
+                    {/* Main content */}
+                    <section className="lg:col-span-3 space-y-16">
+
+                        {/* Featured post */}
+                        <div>
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="w-8 h-px bg-[#FB8500]" />
+                                <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#FB8500]/70">
+                                    Destacado
+                                </p>
+                            </div>
+                            <MainCardBlog />
                         </div>
-                        <p className='text-gris_claro'>Descrubre lo que estas buscando sobre tecnología</p>
-                    </div>
-                    <MainCardBlog />
-                    <div>
-                        <h1 className='text-gris_claro font-bold text-3xl'>Blog recientes</h1>
-                        
-                        <GridCardPostBlogs
-                            dataBlogs={dataResponse}
-                        />
-                    </div>
-                </section>
-                <aside className='space-y-8 sticky top-0'>
-                    <SuscribeCard/>
-                    <TopBlogCard/>
-                </aside>
+
+                        {/* Recent posts */}
+                        <div>
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="w-8 h-px bg-[#FB8500]" />
+                                <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#FB8500]/70">
+                                    Artículos recientes
+                                </p>
+                            </div>
+                            <GridCardPostBlogs dataBlogs={dataResponse} />
+                        </div>
+
+                    </section>
+
+                    {/* Sidebar */}
+                    <aside className="space-y-6 lg:sticky lg:top-24 self-start">
+                        <SuscribeCard />
+                        <TopBlogCard />
+                    </aside>
+
+                </div>
             </main>
-            
         </div>
-    )
+    );
 }

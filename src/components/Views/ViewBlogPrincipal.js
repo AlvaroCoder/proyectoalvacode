@@ -12,10 +12,9 @@ export default function ViewBlogPrincipal() {
     <section className="w-full bg-[#343A40] py-24 px-6 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto">
 
-        {/* Section header */}
         <div className="flex items-center gap-4 mb-16">
           <div className="w-8 h-px bg-[#FB8500]" />
-          <p className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#FB8500]/70">
+          <p className="font-mono text-[20px] tracking-[0.35em] uppercase text-[#FB8500]/70">
             Blog &amp; Conocimiento
           </p>
         </div>

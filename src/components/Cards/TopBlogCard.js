@@ -1,92 +1,59 @@
 import React from 'react';
-import { Zap, ChevronRight, Hash } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useFetch } from '@/utils/customHooks';
 import { URL_PROJECT } from '@/utils/urls';
 
+const Skeleton = () => (
+    <div className="w-full border border-[#E9ECEF]/10 p-6">
+        <div className="animate-pulse space-y-4">
+            <div className="h-2 w-1/2 bg-[#343A40] rounded" />
+            {[1, 2, 3].map((i) => (
+                <div key={i} className="py-3 border-b border-[#E9ECEF]/10 space-y-2">
+                    <div className="h-3 w-full bg-[#343A40] rounded" />
+                    <div className="h-2 w-1/2 bg-[#343A40] rounded" />
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
 export default function TopBlogCard() {
-    const URL_TOP_POST = URL_PROJECT.GET_TOP_BLOGS;
-    
-    const { loading, dataResponse, error } = useFetch(URL_TOP_POST); 
-    console.log(dataResponse);
-    
+    const { loading, dataResponse, error } = useFetch(URL_PROJECT.GET_TOP_BLOGS);
     const topPosts = dataResponse || [];
 
-    if (loading) {
-        return (
-            <div className='p-6 bg-[#212529]/60 backdrop-blur-md border border-[#E63946]/30 rounded-xl text-center text-[#FFB703]'>
-                <p className="animate-pulse">Cargando los blogs más recientes...</p>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className='p-6 bg-[#212529]/60 backdrop-blur-md border border-[#E63946]/30 rounded-xl text-center text-[#E63946]'>
-                <p>Error al cargar los blogs: {error.message}</p>
-            </div>
-        );
-    }
-
-    if (topPosts.length === 0) {
-        return (
-            <div className='p-6 bg-[#212529]/60 backdrop-blur-md border border-[#E63946]/30 rounded-xl text-center text-gray-400'>
-                <p>No se encontraron publicaciones principales.</p>
-            </div>
-        );
-    }
+    if (loading) return <Skeleton />;
+    if (error || topPosts.length === 0) return null;
 
     return (
-        <div className='w-full'>
-            <section
-                className='
-                    p-6 rounded-2xl 
-                    bg-[#212529]/60 backdrop-blur-md border border-[#E63946]/30
-                    shadow-xl text-white space-y-4
-                '
-            >
-                <h2 className='text-2xl font-bold tracking-tight text-[#FFB703] flex items-center gap-2 border-b border-[#E63946]/50 pb-3'>
-                    <Zap className='w-6 h-6 text-[#E63946]' />
-                    Top Blogs (Recientes)
-                </h2>
-
-                <ul className='space-y-3'>
-                    {topPosts.map((post, index) => (
-                        <li key={post.id} className='
-                            group flex items-start p-3 rounded-lg 
-                            border border-transparent hover:border-[#FFB703]/50 
-                            transition-all duration-300
-                            cursor-pointer
-                        '>
-                            <div className='flex-shrink-0 mr-4 mt-1'>
-                                <span className={`
-                                    text-xl font-extrabold 
-                                    ${index === 0 ? 'text-[#FFB703]' : index === 1 ? 'text-[#FB8500]' : index === 2 ? 'text-[#E63946]' : 'text-gray-500'}
-                                `}>
-                                    {`#${index + 1}`}
-                                </span>
-                            </div>
-                            
-                            <a 
-                                href={`/blog/${post.slug}`}
-                                className='flex flex-col flex-grow'
-                            >
-                                <p className='text-base font-semibold text-white group-hover:text-[#FFB703] transition-colors duration-300 line-clamp-2'>
+        <div className="w-full border border-[#E9ECEF]/10 p-6">
+            <p className="font-mono text-[10px] tracking-[0.35em] uppercase text-[#FB8500]/70 mb-6">
+                Más leídos
+            </p>
+            <ul>
+                {topPosts.map((post, index) => (
+                    <li key={post.id} className="border-b border-[#E9ECEF]/10 last:border-0">
+                        <a
+                            href={`/blog/${post.slug}`}
+                            className="group flex items-start gap-4 py-4 transition-colors duration-200"
+                        >
+                            <span className="font-mono text-[10px] text-[#FB8500]/40 mt-0.5 w-4 flex-shrink-0">
+                                {String(index + 1).padStart(2, '0')}
+                            </span>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-sm text-[#E9ECEF] font-light group-hover:text-[#FB8500] transition-colors line-clamp-2 leading-snug">
                                     {post.heading}
                                 </p>
-                                <div className='flex items-center gap-2 text-xs text-gray-500 mt-1'>
-                                    <Hash className='w-3 h-3' />
-                                    <span>
-                                        {post.categories?.[0]?.name || 'General'}
-                                    </span>
-                                </div>
-                            </a>
-                            
-                            <ChevronRight className='w-5 h-5 ml-4 text-gray-500 group-hover:text-[#E63946] transition-all duration-300 group-hover:translate-x-1 flex-shrink-0' />
-                        </li>
-                    ))}
-                </ul>
-            
-            </section>
+                                {post.categories?.[0]?.name && (
+                                    <p className="font-mono text-[9px] tracking-widest uppercase text-[#ADB5BD]/50 mt-1">
+                                        {post.categories[0].name}
+                                    </p>
+                                )}
+                            </div>
+                            <ArrowRight className="w-3 h-3 text-[#ADB5BD]/30 group-hover:text-[#FB8500] flex-shrink-0 mt-1 transition-colors" />
+                        </a>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

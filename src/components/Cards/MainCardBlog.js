@@ -1,133 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { Zap, Clock, ChevronRight, Hash, Eye } from 'lucide-react';
+import React from 'react';
+import { ArrowRight, Clock } from 'lucide-react';
 import { useFetch } from '@/utils/customHooks';
 import { URL_PROJECT } from '@/utils/urls';
 
-const MainCardBlogSkeleton = () => (
-    <section className='animate-pulse w-full rounded-2xl p-6 sm:p-8 bg-[#212529]/60 backdrop-blur-md border border-[#E63946]/30 shadow-xl'>
-        <div className='flex flex-col lg:flex-row gap-6'>
-            {/* Imagen Skeleton */}
-            <div className='w-full lg:w-2/3 h-64 sm:h-80 bg-gray-700 rounded-lg'></div>
-            {/* Contenido Skeleton */}
-            <div className='w-full lg:w-1/3 space-y-4'>
-                <div className='h-4 w-1/4 bg-gray-700 rounded'></div>
-                <div className='h-8 w-full bg-gray-700 rounded'></div>
-                <div className='h-8 w-11/12 bg-gray-700 rounded'></div>
-                <div className='h-6 w-3/4 bg-gray-700 rounded'></div>
-                <div className='h-4 w-1/2 bg-gray-700 rounded'></div>
-                <div className='h-10 w-full bg-gray-700 rounded-full mt-6'></div>
-            </div>
+const Skeleton = () => (
+    <div className="animate-pulse flex flex-col lg:flex-row border border-[#E9ECEF]/10">
+        <div className="w-full lg:w-3/5 h-64 sm:h-80 bg-[#343A40]" />
+        <div className="w-full lg:w-2/5 p-8 space-y-4 bg-[#2A2E32]">
+            <div className="h-2 w-1/3 bg-[#343A40] rounded" />
+            <div className="h-5 w-full bg-[#343A40] rounded" />
+            <div className="h-5 w-4/5 bg-[#343A40] rounded" />
+            <div className="h-3 w-full bg-[#343A40] rounded" />
+            <div className="h-3 w-3/4 bg-[#343A40] rounded" />
         </div>
-    </section>
+    </div>
 );
 
-// =========================================================================
-// COMPONENTE PRINCIPAL
-// =========================================================================
-
 export default function MainCardBlog() {
-    const URL_MAIN_BLOG = URL_PROJECT.GET_FEATURE_BLOG;
-    const { loading, dataResponse: featuredPost, error } = useFetch(URL_MAIN_BLOG);
-    
-    // --- Renderizado de estados ---
+    const { loading, dataResponse: featuredPost, error } = useFetch(URL_PROJECT.GET_FEATURE_BLOG);
 
-    if (loading) {
-        return <MainCardBlogSkeleton />;
-    }
+    if (loading) return <Skeleton />;
 
-    if (error) {
+    if (error || !featuredPost) {
         return (
-            <div className='w-full p-8 bg-[#212529]/60 backdrop-blur-md border border-[#E63946]/30 rounded-xl text-center text-[#E63946]'>
-                <p>Error al cargar el blog destacado: {error.message}</p>
-            </div>
-        );
-    }
-    
-    if (!featuredPost) {
-        return (
-            <div className='w-full p-8 bg-[#212529]/60 backdrop-blur-md border border-[#E63946]/30 rounded-xl text-center text-gray-400'>
-                <p>No hay un post destacado disponible esta semana.</p>
+            <div className="w-full p-8 border border-[#E9ECEF]/10 text-center">
+                <p className="text-sm text-[#ADB5BD] font-light">
+                    {error ? 'Error al cargar el artículo destacado.' : 'No hay artículo destacado disponible.'}
+                </p>
             </div>
         );
     }
 
-    // Desestructuración del post
     const { heading, description, slug, categories, iconContent, publishedAt } = featuredPost;
-    console.log(featuredPost);
-    
-    const primaryCategory = categories?.[0]?.name || 'Tecnología';
-
-
-    // --- Renderizado del Blog Destacado ---
+    const primaryCategory = categories?.[0]?.name;
 
     return (
-        <div className='w-full'>
-            <section 
-                className='
-                    w-full rounded-2xl p-6 sm:p-8 
-                    bg-[#212529]/60 backdrop-blur-md border border-[#FFB703]/30 
-                 
-                    text-white relative overflow-hidden transition-all duration-500
-                '
-            >
-                {/* Indicador de Destacado */}
-                <div className='absolute top-0 left-0 bg-[#E63946] text-white px-4 py-1 text-xs font-bold uppercase rounded-br-lg z-20 shadow-md'>
-                    <Zap className='inline w-3 h-3 mb-0.5' /> Destacado
-                </div>
+        <article className="group flex flex-col lg:flex-row border border-[#E9ECEF]/10 hover:border-[#FB8500]/20 transition-colors duration-300">
 
-                <div className='flex flex-col lg:flex-row gap-6 relative z-10'>
-                    
-                    {/* Visual: Imagen del Post */}
-                    <div className='w-full lg:w-2/3 relative h-64 sm:h-80 rounded-xl overflow-hidden shadow-2xl border border-gray-700'>
-                        <img
-                            src={iconContent?.url}
-                            alt={heading}
-                            className='object-cover w-full h-full transform transition-transform duration-700 hover:scale-105'
-                        />
-                        {/* Gradiente oscuro en la parte inferior */}
-                        <div className='absolute inset-0 bg-gradient-to-t from-[#212529]/70 to-transparent'></div>
+            {/* Image */}
+            <div className="w-full lg:w-3/5 relative h-64 sm:h-80 overflow-hidden">
+                <img
+                    src={iconContent?.url}
+                    alt={heading}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+            </div>
+
+            {/* Content */}
+            <div className="w-full lg:w-2/5 flex flex-col justify-between p-8 bg-[#2A2E32]">
+                <div className="space-y-4">
+                    <div className="flex items-center gap-3 text-[10px] font-mono tracking-[0.25em] uppercase">
+                        {primaryCategory && (
+                            <span className="text-[#FB8500]/70">{primaryCategory}</span>
+                        )}
+                        {primaryCategory && publishedAt && (
+                            <span className="text-[#E9ECEF]/20">·</span>
+                        )}
+                        {publishedAt && (
+                            <span className="text-[#ADB5BD]/60 flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {publishedAt}
+                            </span>
+                        )}
                     </div>
 
-                    {/* Contenido: Detalles y Descripción */}
-                    <div className='w-full lg:w-1/3 space-y-4 flex flex-col justify-between'>
-                        
-                        <div>
-                            {/* Metadatos */}
-                            <div className='text-sm font-medium uppercase text-gray-500 mb-2 flex items-center gap-3'>
-                                <span className='text-[#FB8500]'>{primaryCategory}</span>
-                                <span className='h-1 w-1 rounded-full bg-gray-600'></span>
-                                <Clock className='w-4 h-4 inline' />
-                                {publishedAt || 'Reciente'}
-                            </div>
+                    <h2 className="text-xl sm:text-2xl font-light text-[#F8F9FA] leading-snug">
+                        {heading}
+                    </h2>
 
-                            {/* Título */}
-                            <h2 className='text-3xl font-extrabold tracking-tight text-white hover:text-[#FFB703] transition-colors duration-300'>
-                                {heading}
-                            </h2>
-                            
-                            {/* Descripción (Ajustada para este formato) */}
-                            <p className='text-gray-400 text-base mt-3 line-clamp-4'>
-                                {description}
-                            </p>
-                        </div>
-
-                        {/* Botón de Acción */}
-                        <div className='pt-4'>
-                            <a 
-                                href={`/blog/${slug}`}
-                                className='
-                                    inline-flex items-center justify-center w-full px-6 py-3 rounded-full font-bold text-lg
-                                    bg-[#E63946] hover:bg-[#FB8500] text-white transition-all duration-300
-                                    shadow-xl transform hover:-translate-y-1
-                                '
-                            >
-                                Leer Artículo
-                                <ChevronRight className='w-5 h-5 ml-2' />
-                            </a>
-                        </div>
-                    </div>
+                    <p className="text-sm text-[#ADB5BD] font-light leading-relaxed line-clamp-4">
+                        {description}
+                    </p>
                 </div>
-            </section>
-        </div>
+
+                <a
+                    href={`/blog/${slug}`}
+                    className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.25em] uppercase text-[#ADB5BD] hover:text-[#FB8500] transition-colors duration-200 mt-8"
+                >
+                    Leer artículo completo
+                    <ArrowRight className="w-3 h-3" />
+                </a>
+            </div>
+        </article>
     );
 }

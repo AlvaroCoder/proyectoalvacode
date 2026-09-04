@@ -29,15 +29,13 @@ function ServicesSection() {
     <section className="w-full bg-[#343A40] py-24 px-6 sm:px-8 lg:px-12 border-y border-[#E9ECEF]/10">
       <div className="max-w-7xl mx-auto">
 
-        {/* Header */}
         <div className="flex items-center gap-4 mb-16">
           <div className="w-8 h-px bg-[#FB8500]" />
-          <p className="font-mono text-[11px] tracking-[0.35em] uppercase text-[#FB8500]/70">
+          <p className="font-mono text-[20px] tracking-[0.35em] uppercase text-[#FB8500]/70">
             Servicios
           </p>
         </div>
 
-        {/* Intro */}
         <div className="max-w-2xl mb-16">
           <h2 className="text-3xl sm:text-4xl font-light text-[#F8F9FA] leading-snug">
             No solo programación.{" "}
@@ -47,7 +45,6 @@ function ServicesSection() {
           </h2>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#E9ECEF]/10">
           {SERVICES.map((s) => (
             <div
