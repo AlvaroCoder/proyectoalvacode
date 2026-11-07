@@ -3,12 +3,13 @@ import { URL_PROJECT } from "@/utils/urls";
 import React from "react";
 import { GridCardPosts } from "../Cards";
 import { Loader2 } from "lucide-react";
+import usePosts from "@/modules/posts/hook/usePosts";
+import useCategories from "@/modules/categories/hook/useCategories";
 
 export default function ViewBlogPrincipal() {
-  const { dataResponse: dataPosts, loading: loadingDataPosts } = useFetch(URL_PROJECT.GET_POSTS);
-  console.log("URL_PROJECT ", URL_PROJECT.GET_POSTS);
-  const { dataResponse: dataCategories, loading: loadingDataCategories } = useFetch(URL_PROJECT.GET_CATEGORIES);
-
+  const { dataResponse: dataPosts, loading: loadingDataPosts } = usePosts();
+  const { dataResponse: dataCategories, loading: loadingDataCategories } = useCategories();
+  console.log("Categories : ", dataCategories);
   return (
     <section className="w-full bg-[#343A40] py-24 px-6 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto">
