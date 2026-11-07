@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 
 export default function ViewBlogPrincipal() {
   const { dataResponse: dataPosts, loading: loadingDataPosts } = useFetch(URL_PROJECT.GET_POSTS);
+  console.log("URL_PROJECT ", URL_PROJECT.GET_POSTS);
   const { dataResponse: dataCategories, loading: loadingDataCategories } = useFetch(URL_PROJECT.GET_CATEGORIES);
 
   return (

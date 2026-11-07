@@ -3,18 +3,16 @@ import React from 'react'
 import { useParams } from 'next/navigation'
 import { CardTitles, PostCardDetail, PostCardDetailIntro } from '@/components/Cards';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useFetch } from '@/utils/customHooks';
-import { URL_PROJECT } from '@/utils/urls';
+import useDetailPost from '@/modules/posts/hook/useDetailPost';
 
 export default function BlogPage() {
     const { slug } = useParams();
-    const URL_GET_POST_BY_CATEGORIE = URL_PROJECT.GET_POST_BY_SLUG;
     
     const { 
         dataResponse: dataPost, 
         loading: loadingDataPost, 
         error: errorDataPost 
-    } = useFetch(`${URL_GET_POST_BY_CATEGORIE}/?slug=${slug}`);
+    } = useDetailPost(slug);
     
     if (loadingDataPost) {
         return (
